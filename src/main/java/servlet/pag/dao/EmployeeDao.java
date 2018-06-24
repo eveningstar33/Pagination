@@ -1,27 +1,27 @@
 package servlet.pag.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import servlet.pag.model.Employee;
 
-public class EmployeeDAO { 
+
+public class EmployeeDao { 
 	
 	private DataSource dataSource;
 
-	public EmployeeDAO(DataSource theDataSource) {
+	public EmployeeDao(DataSource theDataSource) {
 		
 		dataSource = theDataSource;
 	}
 
-    public List<Employee> getEmployees(int start, int total) {  
+    public List<Employee> getEmployees(int start, int total) throws Exception {  
     	
         List<Employee> list = new ArrayList<Employee>();  
         String query = "SELECT * FROM employee LIMIT " + (start - 1) + ", " + total;
@@ -45,9 +45,6 @@ public class EmployeeDAO {
                 list.add(employee);  
             }  
               
-        } catch(SQLException e) {
-        	
-        	System.out.println(e);
         } finally {
 			
 			try {
